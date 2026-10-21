@@ -124,18 +124,19 @@ co je potřeba potvrdit.
 - **`series: undefined` neznamená „dohledat".** U závodu, který do žádné
   série nepatří, je to správný stav — stejně jako `serie: null`.
 
-## Němčina
+## Jazyky (čeština, němčina, italština)
 
-Web má přepínač Česky / Deutsch v hlavičce. Výchozí jazyk je čeština;
-návštěvník s německy nastaveným prohlížečem dostane rovnou němčinu. Volba
-se pamatuje v prohlížeči. Žádná knihovna na překlady se nepoužívá.
+Web má přepínač Česky / Deutsch / Italiano v hlavičce. Výchozí jazyk je
+čeština; návštěvník s německy nebo italsky nastaveným prohlížečem dostane
+rovnou svůj jazyk. Volba se pamatuje v prohlížeči. Žádná knihovna na
+překlady se nepoužívá. Stránka s přihláškami je jen německy.
 
-**Texty rozhraní** jsou ve slovníku `src/i18n.ts` (`CS` a `DE`). Oba
-slovníky mají stejný typ `Texty`, takže když nový text doplníš jen do
-jednoho jazyka, build spadne.
+**Texty rozhraní** jsou ve slovníku `src/i18n.ts` (`CS`, `DE` a `IT`).
+Všechny slovníky mají stejný typ `Texty`, takže když nový text doplníš jen
+do jednoho jazyka, build spadne.
 
-**Texty v datech** se překládají polem `de` přímo u závodu. Vyplň jen to,
-co je v originále česky nebo se v němčině říká jinak:
+**Texty v datech** se překládají poli `de` a `it` přímo u závodu. Vyplň jen
+to, co je v originále česky nebo se v daném jazyce říká jinak:
 
 ```ts
 de: {
@@ -146,10 +147,16 @@ de: {
 },
 ```
 
-Co v `de` chybí, zobrazí se v originále. Vlastní jména (rakouská místa,
-názvy závodů, německé názvy tras) se nepřekládají. Když píšeš nový závod
-s českým `zdroj` nebo `startovne`, přidej rovnou i `de` — jinak se
-v německé verzi objeví česky.
+Pole `it` vypadá stejně (`misto: "Monti dei Giganti"`, `trasy: ["Percorso
+principale", …]`). Co v `de` nebo `it` chybí, zobrazí se v originále.
+Vlastní jména (rakouská místa, názvy závodů, německé názvy tras) se
+nepřekládají. Když píšeš nový závod s českým `zdroj` nebo `startovne`,
+přidej rovnou `de` i `it` — jinak se v jejich verzi objeví česky.
+
+**Logo** (silniční kolo) je v `public/favicon.svg`, k němu
+`favicon-32.png` a `apple-touch-icon.png` pro prohlížeče a telefony, které
+SVG ikonu neumí. V hlavičce stránky je stejná kresba jako komponenta
+`src/components/Logo.tsx`.
 
 ## Přihlášky („Wer fährt mit?")
 

@@ -142,6 +142,12 @@ a:focus-visible {
   border-radius: var(--radius-pilulka);
 }
 
+.hlavicka-znacka .logo {
+  width: 20px;
+  height: 16px;
+  margin: -2px 0 -2px -2px;
+}
+
 .hlavicka-horni {
   display: flex;
   align-items: center;
@@ -1688,7 +1694,7 @@ button.pr-tlacitko {
     background-size: 100% 120px, auto, auto;
   }
 
-  .hlavicka-horni,
+  .hlavicka-horni { grid-area: horni; }
   .zpet { grid-area: horni; justify-self: start; }
   .hlavicka h1 { grid-area: nadpis; font-size: clamp(54px, 5.4vw, 80px); }
   .hlavicka p { grid-area: popis; font-size: 15.5px; max-width: 580px; }

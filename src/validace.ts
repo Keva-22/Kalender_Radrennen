@@ -137,21 +137,23 @@ export function zkontrolujZavod(z: Zavod): KontrolaZavodu {
     vytkni(FORMATY.includes(z.format), `format: "${z.format}" není povolená hodnota`);
   }
 
-  // ── německé znění ──
-  if (z.de !== undefined) {
+  // ── německé a italské znění ──
+  for (const jazyk of ["de", "it"] as const) {
+    const p = z[jazyk];
+    if (p === undefined) continue;
     for (const pole of ["nazev", "misto", "region", "startovne", "zdroj"] as const) {
-      const h = z.de[pole];
-      if (h !== undefined) vytkni(jeText(h), `de.${pole}: musí být neprázdný text`);
+      const h = p[pole];
+      if (h !== undefined) vytkni(jeText(h), `${jazyk}.${pole}: musí být neprázdný text`);
     }
-    if (z.de.trasy !== undefined) {
+    if (p.trasy !== undefined) {
       vytkni(
-        z.de.trasy.length === z.trasy.length,
-        `de.trasy: čekám ${z.trasy.length} názvů (stejně jako trasy), je jich ${z.de.trasy.length}`,
+        p.trasy.length === z.trasy.length,
+        `${jazyk}.trasy: čekám ${z.trasy.length} názvů (stejně jako trasy), je jich ${p.trasy.length}`,
       );
-      vytkni(z.de.trasy.every(jeText), "de.trasy: názvy musí být neprázdný text");
+      vytkni(p.trasy.every(jeText), `${jazyk}.trasy: názvy musí být neprázdný text`);
     }
-    if (z.de.startovne !== undefined) {
-      vytkni(z.startovne !== null, "de.startovne: vyplněno, ale startovne je null");
+    if (p.startovne !== undefined) {
+      vytkni(z.startovne !== null, `${jazyk}.startovne: vyplněno, ale startovne je null`);
     }
   }
 

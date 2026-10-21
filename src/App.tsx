@@ -23,9 +23,10 @@ import { Radek } from "./components/Radek";
 import { Mrizka } from "./components/Mrizka";
 import { Prihlasky } from "./components/Prihlasky";
 import { Vlajka } from "./components/Vlajka";
+import { Logo } from "./components/Logo";
 
 const SEZONY = ["2026", "2027"];
-const JAZYKY: Jazyk[] = ["cs", "de"];
+const JAZYKY: Jazyk[] = ["cs", "de", "it"];
 const POCET_ZEMI = new Set(ZAVODY.map((z) => z.zeme)).size;
 
 /* Nejbližší závod s pevným termínem od dneška a počet dní do něj. */
@@ -189,7 +190,10 @@ export default function App() {
       <div className="obal">
         <header className="hlavicka">
           <div className="hlavicka-horni">
-            <div className="hlavicka-znacka">{t.znacka}</div>
+            <div className="hlavicka-znacka">
+              <Logo />
+              {t.znacka}
+            </div>
             <div className="jazyky" role="group" aria-label={t.vyberJazyka}>
               {JAZYKY.map((j) => (
                 <button
@@ -216,9 +220,12 @@ export default function App() {
             </span>
             {nejblizsi && (
               <a className="cip cip--odkaz" href={`#zavod/${nejblizsi.zavod.id}`}>
-                {t.nejblizsi}:{" "}
-                <strong>{lokalizujZavod(nejblizsi.zavod, jazyk).nazev}</strong> ·{" "}
-                {t.zaDni(nejblizsi.dni)}
+                {/* jeden blok textu, ať se dlouhý název zalomí jako věta */}
+                <span>
+                  {t.nejblizsi}:{" "}
+                  <strong>{lokalizujZavod(nejblizsi.zavod, jazyk).nazev}</strong> ·{" "}
+                  {t.zaDni(nejblizsi.dni)}
+                </span>
               </a>
             )}
           </div>

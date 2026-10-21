@@ -44,6 +44,7 @@ export const ZAVODY: Zavod[] = [
     startLocation: { city: "Sauwald", country: "AT" },
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     de: { zdroj: "Veranstalter" },
+    it: { zdroj: "organizzatore" },
   },
   {
     id: "carinthia200-2026", nazev: "Carinthia200",
@@ -91,6 +92,7 @@ export const ZAVODY: Zavod[] = [
     registrationUrl: "https://www.istria300.com/istria300-registration/",  // [uncertain] z výpisu vyhledávání, nenačteno
     sourceUrl: "https://www.istria300.com/istria300-will-take-place-on-a-new-date-next-year/",  // [uncertain]
     de: { zdroj: "istria300.com (Websuche 27. 9. 2026)" },
+    it: { zdroj: "istria300.com (ricerca web 27. 9. 2026)" },
   },
   {
     id: "letape-rovinata-2026", nazev: "L'Etape Czech Republic — Rovinatá etapa",
@@ -121,6 +123,12 @@ export const ZAVODY: Zavod[] = [
       startovne: "1 990 Kč im Vorverkauf → 3 690 Kč",
       trasy: ["Hauptstrecke"],
     },
+    it: {
+      nazev: "L'Etape Czech Republic — Tappa pianeggiante",
+      region: "Regione di Pardubice",
+      startovne: "1 990 Kč in prevendita → 3 690 Kč",
+      trasy: ["Percorso principale"],
+    },
   },
   {
     id: "zadar-2026", nazev: "Zadar Granfondo",
@@ -145,6 +153,7 @@ export const ZAVODY: Zavod[] = [
     status: "provisional",  // [uncertain] odvozeno z overeno="check"
     sourceUrl: "https://www.granfondoguide.com/Events/Index/8778/zadar-granfondo",  // [uncertain]
     de: { zdroj: "granfondoguide.com, zadargranfondo.com (Websuche 27. 9. 2026)" },
+    it: { zdroj: "granfondoguide.com, zadargranfondo.com (ricerca web 27. 9. 2026)" },
   },
 
   // ─── 2027 ────────────────────────────────────────────────────────
@@ -170,6 +179,7 @@ export const ZAVODY: Zavod[] = [
     series: "UCI Gran Fondo World Series",
     status: "provisional",  // [uncertain] odvozeno z overeno="check"
     de: { zdroj: "3sporta.com, coloursofistria.com, ucigranfondoworldseries.com (Websuche 21. 10. 2026)" },
+    it: { zdroj: "3sporta.com, coloursofistria.com, ucigranfondoworldseries.com (ricerca web 21. 10. 2026)" },
   },
   {
     id: "krk-2027", nazev: "Krk Granfondo",
@@ -195,6 +205,10 @@ export const ZAVODY: Zavod[] = [
     de: {
       startovne: "65 € bis 5. 4. 2027 → 70 € bis 16. 4. 2027 · Limit 600",
       zdroj: "krkgranfondo.com (Websuche 21. 10. 2026)",
+    },
+    it: {
+      startovne: "65 € fino al 5. 4. 2027 → 70 € fino al 16. 4. 2027 · limite 600",
+      zdroj: "krkgranfondo.com (ricerca web 21. 10. 2026)",
     },
   },
   {
@@ -222,6 +236,7 @@ export const ZAVODY: Zavod[] = [
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://www.neusiedlersee-radmarathon.com/radmarathon/ausschreibung.html",  // [uncertain] z výpisu vyhledávání, nenačteno
     de: { zdroj: "neusiedlersee-radmarathon.com (Ausschreibung 2027)" },
+    it: { zdroj: "neusiedlersee-radmarathon.com (regolamento 2027)" },
   },
   {
     id: "imst-2027", nazev: "Imster Radmarathon",
@@ -248,6 +263,7 @@ export const ZAVODY: Zavod[] = [
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://www.imster-radmarathon.at",  // [uncertain] zdroj "imster-radmarathon.at" odpovídá doméně webu
     de: { startovne: "56 € bis 31. 12. 2026 → 80 € am Renntag" },
+    it: { startovne: "56 € fino al 31. 12. 2026 → 80 € il giorno della gara" },
   },
   {
     id: "carinthia200-2027", nazev: "Carinthia200",
@@ -274,6 +290,7 @@ export const ZAVODY: Zavod[] = [
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://carinthia200.com/en/",  // [uncertain] z výpisu vyhledávání, nenačteno
     de: { zdroj: "carinthia200.com (Websuche 21. 10. 2026)" },
+    it: { zdroj: "carinthia200.com (ricerca web 21. 10. 2026)" },
   },
   {
     id: "roadstage-oh-2027", nazev: "Road Stage Orlické hory",
@@ -300,6 +317,10 @@ export const ZAVODY: Zavod[] = [
       region: "Region Hradec Králové",
       zdroj: "roadstage.cz (Websuche 21. 10. 2026)",
     },
+    it: {
+      region: "Regione di Hradec Králové",
+      zdroj: "roadstage.cz (ricerca web 21. 10. 2026)",
+    },
   },
   {
     id: "kaernten-2027", nazev: "ARBÖ Kärnten Radmarathon",
@@ -325,6 +346,7 @@ export const ZAVODY: Zavod[] = [
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://www.kaernten-radmarathon.at",  // [uncertain] zdroj "kaernten-radmarathon.at" odpovídá doméně webu
     de: { startovne: "Frühbucherrabatt · Limit 800 Starter" },
+    it: { startovne: "sconto per iscrizioni anticipate · limite 800 partenti" },
   },
   {
     id: "fichtelberg-2027", nazev: "15. Fichtelberg-Radmarathon",
@@ -344,6 +366,7 @@ export const ZAVODY: Zavod[] = [
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://fichtelberg-radmarathon.de",  // [uncertain] domovská stránka pořadatele
     de: { zdroj: "fichtelberg-radmarathon.de (Websuche 28. 9. 2026)" },
+    it: { zdroj: "fichtelberg-radmarathon.de (ricerca web 28. 9. 2026)" },
   },
   {
     id: "glocknerkoenig-2027", nazev: "Glocknerkönig",
@@ -367,6 +390,7 @@ export const ZAVODY: Zavod[] = [
     startLocation: { city: "Bruck an der Großglocknerstraße", country: "AT" },
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     de: { zdroj: "glocknerkoenig.com (Websuche 21. 10. 2026)" },
+    it: { zdroj: "glocknerkoenig.com (ricerca web 21. 10. 2026)" },
   },
   {
     id: "krakonos-2027", nazev: "Casia Krakonošův cyklomaraton",
@@ -398,6 +422,12 @@ export const ZAVODY: Zavod[] = [
       startovne: "1 290 / 1 490 Kč bis 31. 12. 2026 → 1 890 / 2 090 Kč",
       trasy: ["Hauptstrecke", "Kurze Strecke"],
     },
+    it: {
+      misto: "Monti dei Giganti",
+      region: "Regione di Hradec Králové",
+      startovne: "1 290 / 1 490 Kč fino al 31. 12. 2026 → 1 890 / 2 090 Kč",
+      trasy: ["Percorso principale", "Percorso corto"],
+    },
   },
   {
     id: "dolomiten-2027", nazev: "Dolomitenradrundfahrt",
@@ -427,6 +457,10 @@ export const ZAVODY: Zavod[] = [
     de: {
       startovne: "85 € bis 31. 12. 2026 → 95 € bis 31. 5. 2027 → 100 € bis 9. 6. 2027 (Classic)",
       zdroj: "dolomitensport.at (Websuche 21. 10. 2026)",
+    },
+    it: {
+      startovne: "85 € fino al 31. 12. 2026 → 95 € fino al 31. 5. 2027 → 100 € fino al 9. 6. 2027 (Classic)",
+      zdroj: "dolomitensport.at (ricerca web 21. 10. 2026)",
     },
   },
   {
@@ -463,6 +497,14 @@ export const ZAVODY: Zavod[] = [
       startovne: "2 990 Kč (60 km) · 3 890 Kč (100 km, ausgebucht) · 4 190 Kč (130 km)",
       zdroj: "letapeczech.cz (Anmeldung, 28. 9. 2026)",
       trasy: ["Kurz", "Mittel", "Lang"],
+    },
+    it: {
+      nazev: "L'Etape Czech Republic — Tappa collinare",
+      misto: "Praga e dintorni",
+      region: "Praga",
+      startovne: "2 990 Kč (60 km) · 3 890 Kč (100 km, esaurito) · 4 190 Kč (130 km)",
+      zdroj: "letapeczech.cz (iscrizioni, 28. 9. 2026)",
+      trasy: ["Corto", "Medio", "Lungo"],
     },
   },
   {
@@ -501,6 +543,10 @@ export const ZAVODY: Zavod[] = [
       startovne: "140 € für alle Strecken · 140 km ausverkauft · Limit 2 500 Starter",
       zdroj: "mondsee-radmarathon.com, racetime.pro (28. 9. 2026)",
     },
+    it: {
+      startovne: "140 € per tutti i percorsi · 140 km esaurito · limite 2 500 partenti",
+      zdroj: "mondsee-radmarathon.com, racetime.pro (28. 9. 2026)",
+    },
   },
   {
     id: "dreilaendergiro-2027", nazev: "Dreiländergiro",
@@ -524,6 +570,7 @@ export const ZAVODY: Zavod[] = [
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://www.dreilaendergiro.at",  // [uncertain] domovská stránka pořadatele
     de: { zdroj: "dreilaendergiro.at (Websuche 28. 9. 2026)" },
+    it: { zdroj: "dreilaendergiro.at (ricerca web 28. 9. 2026)" },
   },
   {
     id: "tannheim-2027", nazev: "Rad-Marathon Tannheimer Tal",
@@ -577,6 +624,11 @@ export const ZAVODY: Zavod[] = [
       startovne: "Vorregistrierung 3 € bis 10. 11. 2026",
       zdroj: "maratona.it (Websuche 21. 10. 2026)",
     },
+    it: {
+      region: "Alto Adige",
+      startovne: "preiscrizione 3 € fino al 10. 11. 2026",
+      zdroj: "maratona.it (ricerca web 21. 10. 2026)",
+    },
   },
   {
     id: "wachau-2027", nazev: "Wachau Radmarathon",
@@ -611,6 +663,10 @@ export const ZAVODY: Zavod[] = [
       startovne: "105 € bis Online-Anmeldeschluss → 120 € Nachnennung (80 / 90 € ausverkauft)",
       zdroj: "wachau-radmarathon.at (Preisliste 28. 9. 2026)",
     },
+    it: {
+      startovne: "105 € fino alla chiusura delle iscrizioni online → 120 € iscrizione tardiva (80 / 90 € esauriti)",
+      zdroj: "wachau-radmarathon.at (listino prezzi 28. 9. 2026)",
+    },
   },
   {
     id: "arber-2027", nazev: "Arber Radmarathon",
@@ -636,6 +692,7 @@ export const ZAVODY: Zavod[] = [
     startLocation: { city: "Regensburg", country: "DE" },
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     de: { zdroj: "arberradmarathon.de (Websuche 21. 10. 2026)" },
+    it: { zdroj: "arberradmarathon.de (ricerca web 21. 10. 2026)" },
   },
   {
     id: "arlberg-2027", nazev: "Arlberg Giro",
@@ -658,6 +715,7 @@ export const ZAVODY: Zavod[] = [
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://arlberg-giro.com",  // [uncertain] domovská stránka pořadatele
     de: { zdroj: "arlberg-giro.com (Websuche 28. 9. 2026)" },
+    it: { zdroj: "arlberg-giro.com (ricerca web 28. 9. 2026)" },
   },
   {
     id: "kufstein-2027", nazev: "Kufsteinerland Radmarathon",
@@ -683,6 +741,7 @@ export const ZAVODY: Zavod[] = [
     series: "Tiroler Rennrad Cup",
     status: "provisional",  // [uncertain] odvozeno z overeno="check"
     de: { zdroj: "kufsteinerland-radmarathon.at (voraussichtlicher Termin, 28. 9. 2026); Strecken laut Ausgabe 2026" },
+    it: { zdroj: "kufsteinerland-radmarathon.at (data probabile, 28. 9. 2026); percorsi secondo l'edizione 2026" },
   },
   {
     id: "oetztaler-2027", nazev: "Ötztaler Radmarathon",
@@ -700,6 +759,9 @@ export const ZAVODY: Zavod[] = [
     startLocation: { city: "Sölden", country: "AT" },
     status: "provisional",  // [uncertain] odvozeno z overeno="check"
     de: { zdroj: "Termin: central-soelden.com + intervalcoach.app (Websuche 27. 9. 2026); Strecke laut Ausgabe 2026" },
+    it: {
+      zdroj: "Data: central-soelden.com + intervalcoach.app (ricerca web 27. 9. 2026); percorso secondo l'edizione 2026",
+    },
   },
   {
     id: "sauwald-2027", nazev: "SauwaldGiro",
@@ -727,6 +789,9 @@ export const ZAVODY: Zavod[] = [
     status: "provisional",  // [uncertain] odvozeno z overeno="check"
     sourceUrl: "https://www.sauwaldgiro.at",  // [uncertain] domovská stránka pořadatele
     de: { zdroj: "sauwaldgiro.at (Countdown bis zum Start, 28. 9. 2026); Startgeld noch nicht angegeben" },
+    it: {
+      zdroj: "sauwaldgiro.at (conto alla rovescia alla partenza, 28. 9. 2026); quota d'iscrizione non ancora indicata",
+    },
   },
   {
     id: "zelenak-2027", nazev: "Tour de Zeleňák",
@@ -753,6 +818,11 @@ export const ZAVODY: Zavod[] = [
       zdroj: "zelenak.cz (Websuche 21. 10. 2026)",
       trasy: ["Runde", "Zwei Runden"],
     },
+    it: {
+      region: "Regione di Ústí nad Labem",
+      zdroj: "zelenak.cz (ricerca web 21. 10. 2026)",
+      trasy: ["Giro", "Due giri"],
+    },
   },
   {
     id: "kitzbuehel-2027", nazev: "Kitzbüheler Radmarathon",
@@ -777,6 +847,7 @@ export const ZAVODY: Zavod[] = [
     resultsUrl: "https://kitzbueheler-radmarathon.at/rennen/ergebnisse/",  // [uncertain] z výpisu vyhledávání, nenačteno
     sourceUrl: "https://www.kitzbuehel.com/events/alle-highlight-veranstaltungen/kitzbueheler-radmarathon/",  // [uncertain]
     de: { zdroj: "kitzbuehel.com (Termin), kitzbueheler-radmarathon.at (Strecken), Websuche 27. 9. 2026" },
+    it: { zdroj: "kitzbuehel.com (data), kitzbueheler-radmarathon.at (percorsi), ricerca web 27. 9. 2026" },
   },
   {
     id: "kotl-2027", nazev: "King of the Lake",
@@ -802,6 +873,10 @@ export const ZAVODY: Zavod[] = [
     de: {
       zdroj: "kotl.at (vorläufiger Termin), spoferan.com (Strecke), Websuche 27. 9. 2026",
       trasy: ["Runde um den Attersee"],
+    },
+    it: {
+      zdroj: "kotl.at (data provvisoria), spoferan.com (percorso), ricerca web 27. 9. 2026",
+      trasy: ["Giro dell'Attersee"],
     },
   },
   {
@@ -830,6 +905,7 @@ export const ZAVODY: Zavod[] = [
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://www.istria300.com/i300/course-concept/istria300/",  // [uncertain] z výpisu vyhledávání, nenačteno
     de: { zdroj: "istria300.com (Websuche 21. 10. 2026)" },
+    it: { zdroj: "istria300.com (ricerca web 21. 10. 2026)" },
   },
 
   // ─── 2027, termín zatím nevyhlášen ───────────────────────────────
@@ -857,6 +933,13 @@ export const ZAVODY: Zavod[] = [
       zdroj: "Ausgabe 2026 zur Orientierung",
       trasy: ["Hauptstrecke"],
     },
+    it: {
+      nazev: "L'Etape Czech Republic — Tappa pianeggiante",
+      misto: "Dintorni di Pardubice",
+      region: "Regione di Pardubice",
+      zdroj: "edizione 2026 come riferimento",
+      trasy: ["Percorso principale"],
+    },
   },
   {
     id: "zadar-2027", nazev: "Zadar Granfondo",
@@ -881,6 +964,7 @@ export const ZAVODY: Zavod[] = [
     startLocation: { city: "Zadar", country: "HR" },
     status: "provisional",  // [uncertain] odvozeno z overeno="tbc"
     de: { zdroj: "Ausgabe 2026 zur Orientierung" },
+    it: { zdroj: "edizione 2026 come riferimento" },
   },
 ];
 

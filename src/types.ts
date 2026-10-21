@@ -75,4 +75,5 @@ export interface Zavod {
   format?: Format;                  // undefined = hromadný start
 
   de?: PrekladZavodu;               // německé znění pro přepínač jazyka
+  it?: PrekladZavodu;               // italské znění pro přepínač jazyka
 }

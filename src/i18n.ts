@@ -3,10 +3,10 @@ import type { Uzavirky, Zavod, Zeme } from "./types";
 import type { KlicProfilu } from "./ui";
 
 /* Přepínání jazyka bez knihovny: slovník textů rozhraní + volitelné
-   německé znění datových polí (Zavod.de). Typ Texty zajistí, že když
-   v jednom jazyce nějaký text chybí, build spadne. */
+   německé a italské znění datových polí (Zavod.de, Zavod.it). Typ Texty
+   zajistí, že když v jednom jazyce nějaký text chybí, build spadne. */
 
-export type Jazyk = "cs" | "de";
+export type Jazyk = "cs" | "de" | "it";
 
 export interface Texty {
   htmlLang: string;
@@ -218,22 +218,110 @@ const DE: Texty = {
   },
 };
 
-export const TEXTY: Record<Jazyk, Texty> = { cs: CS, de: DE };
+const IT: Texty = {
+  htmlLang: "it",
+  titulekStranky: "Roadbook — granfondo dell'Europa centrale",
+  znacka: "Roadbook · titolo provvisorio",
+  nadpis1: "Granfondo",
+  nadpis2: "dell'Europa centrale",
+  popis:
+    "Grandi gare amatoriali in Repubblica Ceca e Austria, più le zone di " +
+    "confine di Germania, Slovacchia e Italia e una selezione di gare in " +
+    "Croazia. Clicca su una gara per i percorsi e il link all'organizzatore.",
+  vyberJazyka: "Lingua",
+  vse: "tutti",
+  seznam: "elenco",
+  kalendar: "calendario",
+  prazdno:
+    "Per questa selezione non abbiamo ancora gare. Prova un altro paese " +
+    "o un'altra stagione.",
+  legenda: "Profilo = dislivello per chilometro",
+  poznamka:
+    "Le date provengono da una ricerca rapida — verificale presso " +
+    "l'organizzatore prima di iscriverti. Per ogni gara è indicata la fonte.",
+  pocetZavodu: (n) => `${n} ${n === 1 ? "gara" : "gare"}`,
+  bezTerminu: (n) => `+ ${n} senza data confermata`,
+  mesice: [
+    "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
+    "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre",
+  ],
+  dnyZkratky: ["dom", "lun", "mar", "mer", "gio", "ven", "sab"],
+  dnyMrizka: ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
+  profily: {
+    rovina: "pianeggiante",
+    zvlnena: "ondulato",
+    kopcovita: "collinare",
+    horska: "montagna",
+  },
+  uzavirky: {
+    plna: "Strade completamente chiuse",
+    castecna: "Strade parzialmente chiuse",
+    provoz: "Strade aperte al traffico",
+    nezname: "Chiusure non verificate",
+  },
+  uzavreno: "strade chiuse",
+  casovka: "cronometro",
+  nedoplneno: "n.d.",
+  tbc: "TBC",
+  sloupecTrasa: "Percorso",
+  sloupecKm: "km",
+  sloupecHm: "disl.",
+  sloupecProfil: "profilo",
+  jednotkaHm: "m",
+  trasyNedoplneny: "Percorsi non ancora inseriti.",
+  silnice: "Strade",
+  startovne: "Iscrizione",
+  oficialniWeb: "Sito ufficiale →",
+  odkazNedoplnen: "link non disponibile",
+  zdroj: "fonte:",
+  odkazPrihlasky: "Chi partecipa? Iscrizioni (in tedesco) →",
+  kdoJede: "Iscriviti · chi partecipa →",
+  pocetZemi: (n) => `${n} ${n === 1 ? "paese" : "paesi"}`,
+  nejblizsi: "Prossima",
+  zaDni: (n) => (n === 0 ? "oggi" : n === 1 ? "domani" : `tra ${n} giorni`),
+  probehlo: "conclusa",
+  terminKOvereni: "data da confermare",
+  nejblizsiZavod: "Prossima gara",
+  sezonaNadpis: "Stagione",
+  zemeNadpis: "Paesi",
+  zobrazeniNadpis: "Vista",
+  mesiceNadpis: "Vai al mese",
+  nazvyZemi: {
+    CZ: "Rep. Ceca",
+    AT: "Austria",
+    DE: "Germania",
+    SK: "Slovacchia",
+    IT: "Italia",
+    HR: "Croazia",
+  },
+};
+
+export const TEXTY: Record<Jazyk, Texty> = { cs: CS, de: DE, it: IT };
 
 /** Každý jazyk se nabízí svým vlastním jménem. */
-export const NAZVY_JAZYKU: Record<Jazyk, string> = { cs: "Česky", de: "Deutsch" };
+export const NAZVY_JAZYKU: Record<Jazyk, string> = {
+  cs: "Česky",
+  de: "Deutsch",
+  it: "Italiano",
+};
+
+const JAZYKY_ULOZENE: readonly string[] = ["cs", "de", "it"];
 
 const KLIC_ULOZISTE = "roadbook-jazyk";
 
-/** Uložená volba, jinak jazyk prohlížeče (německy mluvícím rovnou němčina). */
+/** Uložená volba, jinak jazyk prohlížeče (německy a italsky mluvícím
+    rovnou jejich jazyk, ostatním čeština). */
 export function vychoziJazyk(): Jazyk {
   try {
     const ulozeny = window.localStorage.getItem(KLIC_ULOZISTE);
-    if (ulozeny === "cs" || ulozeny === "de") return ulozeny;
+    if (ulozeny && JAZYKY_ULOZENE.includes(ulozeny)) return ulozeny as Jazyk;
   } catch {
     // úložiště nedostupné (soukromé okno, zablokovaná data) — jen se nepamatuje
   }
-  return (navigator.language || "").toLowerCase().startsWith("de") ? "de" : "cs";
+  const prohlizec = (navigator.language || "").toLowerCase();
+  if (prohlizec.startsWith("de")) return "de";
+  if (prohlizec.startsWith("it")) return "it";
+  return "cs";
 }
 
 export function ulozJazyk(jazyk: Jazyk): void {
@@ -246,8 +334,8 @@ export function ulozJazyk(jazyk: Jazyk): void {
 
 /** Závod s textovými poli v daném jazyce; chybějící překlad = originál. */
 export function lokalizujZavod(z: Zavod, jazyk: Jazyk): Zavod {
-  const d = z.de;
-  if (jazyk === "cs" || d === undefined) return z;
+  const d = jazyk === "cs" ? undefined : z[jazyk];
+  if (d === undefined) return z;
   return {
     ...z,
     nazev: d.nazev ?? z.nazev,
