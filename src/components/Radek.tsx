@@ -19,8 +19,13 @@ export function Radek({ zavod, otevreno, prepni }: Props) {
   const p = profilZavodu(zavod);
   const datum = zavod.datum ? new Date(zavod.datum + "T12:00:00") : null;
   const probehlo = !jeBudouci(zavod, dnesniDatum());
-  // bez převýšení aspoň délka nejdelší trasy (profil se pak nepočítá)
+  // Vpravo vždy nejdelší trasa. Když u ní převýšení chybí, ukáže se „– hm"
+  // a profil (barva, pruh) se dál počítá z nejdelší trasy se známým hm.
   const nejdelsiKm = Math.max(0, ...zavod.trasy.map((tr) => tr.km ?? 0));
+  const hmNejdelsi =
+    p && p.trasa.km === nejdelsiKm
+      ? p.trasa.hm
+      : (zavod.trasy.find((tr) => tr.km === nejdelsiKm)?.hm ?? null);
   const nejiste = zavod.datum !== null && zavod.overeno === "check" && !probehlo;
 
   return (
@@ -113,22 +118,24 @@ export function Radek({ zavod, otevreno, prepni }: Props) {
         )}
 
         <div className="radek-cisla">
-          {p ? (
-            <>
-              <div className="radek-km">{p.trasa.km} km</div>
-              <div className="radek-hm">
-                <span className={`profil--${p.profil.klic}`} aria-hidden="true">
-                  ▲{" "}
-                </span>
-                {p.trasa.hm} {t.jednotkaHm}
-              </div>
-            </>
-          ) : nejdelsiKm > 0 ? (
+          {nejdelsiKm > 0 ? (
             <>
               <div className="radek-km">{nejdelsiKm} km</div>
-              <div className="radek-hm radek-hm--chybi" title={t.nedoplneno}>
-                – {t.jednotkaHm}
-              </div>
+              {hmNejdelsi !== null ? (
+                <div className="radek-hm">
+                  <span
+                    className={`profil--${profilTrasy(nejdelsiKm, hmNejdelsi).klic}`}
+                    aria-hidden="true"
+                  >
+                    ▲{" "}
+                  </span>
+                  {hmNejdelsi} {t.jednotkaHm}
+                </div>
+              ) : (
+                <div className="radek-hm radek-hm--chybi" title={t.nedoplneno}>
+                  – {t.jednotkaHm}
+                </div>
+              )}
             </>
           ) : (
             <div className="radek-nedoplneno">{t.nedoplneno}</div>

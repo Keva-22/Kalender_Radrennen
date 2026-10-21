@@ -12,7 +12,7 @@ import { vypisKontrolu } from "../validace";
    ═══════════════════════════════════════════════════════════════════ */
 
 export const ZAVODY: Zavod[] = [
-  // ─── 2026, zbytek sezóny ───────────────────────────────────────
+  // ─── 2026 ────────────────────────────────────────────────────────
   {
     id: "oetztaler-2026", nazev: "Ötztaler Radmarathon",
     misto: "Sölden", region: "Tirol", zeme: "AT",
@@ -49,23 +49,24 @@ export const ZAVODY: Zavod[] = [
     id: "carinthia200-2026", nazev: "Carinthia200",
     misto: "Villach", region: "Kärnten", zeme: "AT",
     datum: "2026-09-20", overeno: "ok", serie: null,
-    // Oprava: dřívější údaj "Mittel 105 km / 1304 hm" neodpovídá žádné
-    // vypsané trase. Pořadatel uvádí tři trasy; zdroj: carinthia200.com
+    // Premiéra měla dvě trasy (článek pořadatele „Two Distances, One Motto“);
+    // km/hm dle stránky Course Concept na carinthia200.com (vyhledávání
+    // 21. 10. 2026). Dřívější tři trasy 125 / 155 / 200 km se nepotvrdily.
     trasy: [
-      { nazev: "125 km", km: 125, hm: 1575 },  // [uncertain]
-      { nazev: "155 km", km: 155, hm: 2630 },  // [uncertain]
-      { nazev: "200 km", km: 200, hm: 3285 },  // [uncertain]
+      { nazev: "Carinthia105", km: 105.7, hm: 1304 },
+      { nazev: "Carinthia200", km: 197.4, hm: 2731 },
     ],
-    uzavirky: "nezname", startovne: null,
-    web: null, zdroj: "pořadatel",
+    uzavirky: "plna",  // pořadatel: závod na plně uzavřených silnicích
+    startovne: null,
+    web: "https://carinthia200.com", zdroj: "carinthia200.com",
 
     /* ── rozšířená pole ── */
-    distanceKm: 200,   // [uncertain] nejdelší ze 3 tras
-    elevationM: 3285,  // [uncertain]
-    profile: "hilly",  // [uncertain] odvozeno z hm/km = 16.4
+    distanceKm: 197.4,  // [uncertain] delší ze 2 tras
+    elevationM: 2731,
+    profile: "hilly",  // [uncertain] odvozeno z hm/km = 13.8
     startLocation: { city: "Villach", country: "AT" },
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
-    de: { zdroj: "Veranstalter" },
+    sourceUrl: "https://carinthia200.com/en/course-concept/",  // [uncertain] z výpisu vyhledávání, nenačteno
   },
   {
     id: "istria300-2026", nazev: "Istria300",
@@ -77,7 +78,7 @@ export const ZAVODY: Zavod[] = [
       { nazev: "Istria209", km: 209, hm: 3250 },    // [uncertain]
       { nazev: "Istria135", km: 134.5, hm: 1800 },  // [uncertain]
     ],
-    uzavirky: "nezname", startovne: null,
+    uzavirky: "plna", startovne: null,  // pořadatel: plně uzavřené silnice
     web: "https://www.istria300.com",
     zdroj: "istria300.com (vyhledávání 27. 9. 2026)",
 
@@ -121,7 +122,6 @@ export const ZAVODY: Zavod[] = [
       trasy: ["Hauptstrecke"],
     },
   },
-
   {
     id: "zadar-2026", nazev: "Zadar Granfondo",
     misto: "Zadar", region: "Zadarska županija", zeme: "HR",
@@ -147,7 +147,82 @@ export const ZAVODY: Zavod[] = [
     de: { zdroj: "granfondoguide.com, zadargranfondo.com (Websuche 27. 9. 2026)" },
   },
 
-  // ─── 2027 ──────────────────────────────────────────────────────
+  // ─── 2027 ────────────────────────────────────────────────────────
+  {
+    id: "istria-gf-2027", nazev: "UCI Istria Gran Fondo",
+    misto: "Umag", region: "Istra", zeme: "HR",
+    // termín ze zpráv a turistického webu, ne přímo od pořadatele
+    datum: "2027-04-03", overeno: "check", serie: "UCI Gran Fondo World Series",
+    // Převýšení se mezi zdroji (vesměs z roku 2026) rozchází:
+    // 105 km 1 545–1 745 hm, 80 km 1 071–1 254 hm → zatím hm = null.
+    trasy: [
+      { nazev: "Medio Fondo", km: 80, hm: null },
+      { nazev: "Gran Fondo", km: 105, hm: null },
+    ],
+    uzavirky: "nezname", startovne: null,
+    web: "https://ucigranfondoworldseries.com/en/istria-gran-fondo/",
+    zdroj: "3sporta.com, coloursofistria.com, ucigranfondoworldseries.com (vyhledávání 21. 10. 2026)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 105,  // [uncertain] delší ze 2 tras
+    startLocation: { city: "Umag", country: "HR" },
+    registrationDeadline: "2027-04-01",  // [uncertain] přihlášky do 1. 4. 2027 dle 3sporta.com
+    series: "UCI Gran Fondo World Series",
+    status: "provisional",  // [uncertain] odvozeno z overeno="check"
+    de: { zdroj: "3sporta.com, coloursofistria.com, ucigranfondoworldseries.com (Websuche 21. 10. 2026)" },
+  },
+  {
+    id: "krk-2027", nazev: "Krk Granfondo",
+    misto: "Punat (Krk)", region: "Primorsko-goranska županija", zeme: "HR",
+    // 4. ročník; program pořadatele uvádí sobotu 24. 4. 2027, start 10:00,
+    // jeden nadpis na webu ale 17. 4. 2027 → k ověření
+    datum: "2027-04-24", overeno: "check", serie: null,
+    trasy: [{ nazev: "82 km", km: 82, hm: 1320 }],  // [uncertain] hm jen z cycloworld.cc
+    uzavirky: "nezname",
+    startovne: "65 € do 5. 4. 2027 → 70 € do 16. 4. 2027 · limit 600",
+    web: "https://krkgranfondo.com",
+    zdroj: "krkgranfondo.com (vyhledávání 21. 10. 2026)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 82,
+    elevationM: 1320,  // [uncertain] jen z cycloworld.cc
+    profile: "hilly",  // [uncertain] odvozeno z hm/km = 16.1
+    startTime: "10:00",  // [uncertain] z programu ve výpisu vyhledávání
+    startLocation: { city: "Punat", country: "HR" },
+    entryFee: "65 € do 5. 4. 2027 → 70 € do 16. 4. 2027 · limit 600",
+    registrationDeadline: "2027-04-16",
+    status: "provisional",  // [uncertain] odvozeno z overeno="check"
+    de: {
+      startovne: "65 € bis 5. 4. 2027 → 70 € bis 16. 4. 2027 · Limit 600",
+      zdroj: "krkgranfondo.com (Websuche 21. 10. 2026)",
+    },
+  },
+  {
+    id: "neusiedlersee-2027", nazev: "Neusiedlersee Radmarathon",
+    misto: "Mörbisch am See", region: "Burgenland", zeme: "AT",
+    // 35. ročník; v sobotu 24. 4. časovka jednotlivců a dvojic (26 km / 200 hm)
+    datum: "2027-04-25", overeno: "ok", serie: null,
+    trasy: [
+      { nazev: "MINI", km: 60, hm: 300 },
+      { nazev: "Radmarathon", km: 125, hm: 600 },
+    ],
+    uzavirky: "nezname",
+    startovne: "80 € (125 km)",
+    web: "https://www.neusiedlersee-radmarathon.com",
+    zdroj: "neusiedlersee-radmarathon.com (propozice 2027)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 125,
+    elevationM: 600,
+    profile: "flat",  // [uncertain] odvozeno z hm/km = 4.8
+    startTime: "09:00",
+    startLocation: { city: "Mörbisch am See", country: "AT" },
+    entryFee: "80 € (125 km)",
+    registrationDeadline: "2027-04-21",  // online do 23:59, pak dohláška na místě
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    sourceUrl: "https://www.neusiedlersee-radmarathon.com/radmarathon/ausschreibung.html",  // [uncertain] z výpisu vyhledávání, nenačteno
+    de: { zdroj: "neusiedlersee-radmarathon.com (Ausschreibung 2027)" },
+  },
   {
     id: "imst-2027", nazev: "Imster Radmarathon",
     misto: "Imst", region: "Tirol", zeme: "AT",
@@ -173,6 +248,58 @@ export const ZAVODY: Zavod[] = [
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://www.imster-radmarathon.at",  // [uncertain] zdroj "imster-radmarathon.at" odpovídá doméně webu
     de: { startovne: "56 € bis 31. 12. 2026 → 80 € am Renntag" },
+  },
+  {
+    id: "carinthia200-2027", nazev: "Carinthia200",
+    misto: "Villach", region: "Kärnten", zeme: "AT",
+    // zpět v původním květnovém termínu (2026 se kvůli opravám silnice
+    // jelo až v září); limit 3 500 startujících
+    datum: "2027-05-23", overeno: "ok", serie: null,
+    // trasy dle stránky Course Concept, tedy zatím údaje ročníku 2026;
+    // pořadatel uvádí, že pro rok 2027 připravuje i střední trasu
+    trasy: [
+      { nazev: "Carinthia105", km: 105.7, hm: 1304 },  // [uncertain] údaj ročníku 2026
+      { nazev: "Carinthia200", km: 197.4, hm: 2731 },  // [uncertain] údaj ročníku 2026
+    ],
+    uzavirky: "plna",  // pořadatel: plně uzavřené silnice
+    startovne: null,
+    web: "https://carinthia200.com",
+    zdroj: "carinthia200.com (vyhledávání 21. 10. 2026)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 197.4,  // [uncertain] delší ze 2 tras
+    elevationM: 2731,   // [uncertain] údaj ročníku 2026
+    profile: "hilly",  // [uncertain] odvozeno z hm/km = 13.8
+    startLocation: { city: "Villach", country: "AT" },
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    sourceUrl: "https://carinthia200.com/en/",  // [uncertain] z výpisu vyhledávání, nenačteno
+    de: { zdroj: "carinthia200.com (Websuche 21. 10. 2026)" },
+  },
+  {
+    id: "roadstage-oh-2027", nazev: "Road Stage Orlické hory",
+    misto: "Deštné v Orlických horách", region: "Královéhradecký kraj", zeme: "CZ",
+    // amatérský závod na trati GP Czechia (UCI); měřené úseky Komáří vrch a Šerlich
+    datum: "2027-06-05", overeno: "ok", serie: "Road Stage",
+    trasy: [
+      { nazev: "Stage 69", km: 69, hm: null },  // převýšení zatím nezveřejněno
+      { nazev: "Stage 138", km: 138, hm: 2300 },
+    ],
+    uzavirky: "nezname", startovne: null,
+    web: "https://roadstage.cz/orlicke-hory",
+    zdroj: "roadstage.cz (vyhledávání 21. 10. 2026)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 138,
+    elevationM: 2300,
+    profile: "hilly",  // [uncertain] odvozeno z hm/km = 16.7
+    startTime: "11:10",
+    startLocation: { city: "Deštné v Orlických horách", country: "CZ" },
+    series: "Road Stage",
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    de: {
+      region: "Region Hradec Králové",
+      zdroj: "roadstage.cz (Websuche 21. 10. 2026)",
+    },
   },
   {
     id: "kaernten-2027", nazev: "ARBÖ Kärnten Radmarathon",
@@ -219,6 +346,29 @@ export const ZAVODY: Zavod[] = [
     de: { zdroj: "fichtelberg-radmarathon.de (Websuche 28. 9. 2026)" },
   },
   {
+    id: "glocknerkoenig-2027", nazev: "Glocknerkönig",
+    misto: "Bruck an der Großglocknerstraße", region: "Salzburg", zeme: "AT",
+    // 30. ročník; vrchařský závod po Großglockner Hochalpenstraße,
+    // přihlášky se mají otevřít v prosinci 2026
+    datum: "2027-06-06", overeno: "ok", serie: null,
+    trasy: [
+      { nazev: "Classic – Fuscher Törl", km: 27.3, hm: 1672 },  // [uncertain] zdroje uvádějí 1 671–1 694 hm
+      { nazev: "Ultra – Edelweißspitze", km: 28.9, hm: 1815 },  // [uncertain]
+    ],
+    uzavirky: "plna",  // [uncertain] silnice zavřená pro provoz cca 7:00–10:30 dle jednoho zdroje
+    startovne: null,
+    web: "https://www.glocknerkoenig.com",
+    zdroj: "glocknerkoenig.com (vyhledávání 21. 10. 2026)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 28.9,
+    elevationM: 1815,
+    profile: "mountain",  // [uncertain] odvozeno z hm/km = 62.8
+    startLocation: { city: "Bruck an der Großglocknerstraße", country: "AT" },
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    de: { zdroj: "glocknerkoenig.com (Websuche 21. 10. 2026)" },
+  },
+  {
     id: "krakonos-2027", nazev: "Casia Krakonošův cyklomaraton",
     misto: "Krkonoše", region: "Královéhradecký kraj", zeme: "CZ",
     datum: "2027-06-12", overeno: "ok", serie: null,
@@ -247,6 +397,36 @@ export const ZAVODY: Zavod[] = [
       region: "Region Hradec Králové",
       startovne: "1 290 / 1 490 Kč bis 31. 12. 2026 → 1 890 / 2 090 Kč",
       trasy: ["Hauptstrecke", "Kurze Strecke"],
+    },
+  },
+  {
+    id: "dolomiten-2027", nazev: "Dolomitenradrundfahrt",
+    misto: "Lienz", region: "Tirol", zeme: "AT",
+    // 39. ročník, současně 12. SuperGiroDolomiti; přihlášky otevřeny
+    // 25. 8. 2026. Podle kufsteinerland-radmarathon.at má být od roku 2027
+    // součástí Tiroler Rennrad Cupu — nepotvrzeno, proto serie = null.
+    datum: "2027-06-13", overeno: "ok", serie: null,
+    trasy: [
+      { nazev: "Classic", km: 112, hm: 1870 },
+      { nazev: "SuperGiroDolomiti", km: 218, hm: 5060 },  // [uncertain] brožura 2025 uvádí 228 km / 5 450 hm
+    ],
+    uzavirky: "nezname",
+    startovne: "85 € do 31. 12. 2026 → 95 € do 31. 5. 2027 → 100 € do 9. 6. 2027 (Classic)",
+    web: "https://www.dolomitensport.at/de/events/dolomitenradrundfahrt.html",
+    zdroj: "dolomitensport.at (vyhledávání 21. 10. 2026)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 218,   // [uncertain] delší ze 2 tras
+    elevationM: 5060,  // [uncertain]
+    profile: "mountain",  // [uncertain] odvozeno z hm/km = 23.2
+    startTime: "09:15",  // start trasy Classic
+    startLocation: { city: "Lienz", country: "AT" },
+    entryFee: "85 € do 31. 12. 2026 → 95 € do 31. 5. 2027 → 100 € do 9. 6. 2027 (Classic)",
+    registrationDeadline: "2027-06-09",  // online do 23:59, pak dohláška na místě (+5 €)
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    de: {
+      startovne: "85 € bis 31. 12. 2026 → 95 € bis 31. 5. 2027 → 100 € bis 9. 6. 2027 (Classic)",
+      zdroj: "dolomitensport.at (Websuche 21. 10. 2026)",
     },
   },
   {
@@ -369,6 +549,36 @@ export const ZAVODY: Zavod[] = [
     sourceUrl: "https://www.rad-marathon.at",  // [uncertain] zdroj "rad-marathon.at" odpovídá doméně webu
   },
   {
+    id: "maratona-2027", nazev: "Maratona dles Dolomites",
+    misto: "Alta Badia (La Villa → Corvara)", region: "Jižní Tyrolsko", zeme: "IT",
+    // 40. ročník (téma MÜJIGA); předregistrace do 10. 11. 2026,
+    // potvrzení přihlášky do 26. 5. 2027
+    datum: "2027-07-04", overeno: "ok", serie: null,
+    trasy: [
+      { nazev: "Sellaronda", km: 55, hm: 1780 },  // [uncertain] hm z discoveryalps.it / dalzero.it
+      { nazev: "Medio", km: 106, hm: 3130 },
+      { nazev: "Maratona", km: 138, hm: 4230 },
+    ],
+    uzavirky: "nezname",
+    startovne: "předregistrace 3 € do 10. 11. 2026",
+    web: "https://www.maratona.it",
+    zdroj: "maratona.it (vyhledávání 21. 10. 2026)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 138,
+    elevationM: 4230,
+    profile: "mountain",  // [uncertain] odvozeno z hm/km = 30.7
+    startLocation: { city: "La Villa", country: "IT" },
+    entryFee: "předregistrace 3 € do 10. 11. 2026",
+    registrationDeadline: "2026-11-10",  // [uncertain] konec předregistrace, ne samotné přihlášky
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    de: {
+      region: "Südtirol",
+      startovne: "Vorregistrierung 3 € bis 10. 11. 2026",
+      zdroj: "maratona.it (Websuche 21. 10. 2026)",
+    },
+  },
+  {
     id: "wachau-2027", nazev: "Wachau Radmarathon",
     misto: "Mautern an der Donau", region: "Niederösterreich", zeme: "AT",
     datum: "2027-07-18", overeno: "ok", serie: null,
@@ -403,6 +613,31 @@ export const ZAVODY: Zavod[] = [
     },
   },
   {
+    id: "arber-2027", nazev: "Arber Radmarathon",
+    misto: "Regensburg", region: "Bayern", zeme: "DE",
+    // 43. ročník; v sobotu 24. 7. Retro-Arber; start na Dultplatz
+    datum: "2027-07-25", overeno: "ok", serie: null,
+    // km/hm dle stránek tras na arberradmarathon.de; kromě silničních tras
+    // jsou i rodinné, MTB a gravel okruhy (zde neuvedeny)
+    trasy: [
+      { nazev: "Tour C – Bayerwaldrunde", km: 125, hm: 1400 },  // [uncertain] detail trasy uvádí 1 201 hm
+      { nazev: "Tour B – Arberrunde", km: 170, hm: 2400 },
+      { nazev: "Tour A – Große Arberrunde", km: 250, hm: 3750 },
+    ],
+    uzavirky: "nezname", startovne: null,
+    web: "https://www.arberradmarathon.de",
+    zdroj: "arberradmarathon.de (vyhledávání 21. 10. 2026)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 250,
+    elevationM: 3750,
+    profile: "hilly",  // [uncertain] odvozeno z hm/km = 15.0
+    startTime: "06:00",  // [uncertain] z kalendáře třetí strany
+    startLocation: { city: "Regensburg", country: "DE" },
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    de: { zdroj: "arberradmarathon.de (Websuche 21. 10. 2026)" },
+  },
+  {
     id: "arlberg-2027", nazev: "Arlberg Giro",
     misto: "St. Anton am Arlberg", region: "Tirol", zeme: "AT",
     // termín z arlberg-giro.com; přihlášky otevřeny 15. 9. 2026,
@@ -424,7 +659,6 @@ export const ZAVODY: Zavod[] = [
     sourceUrl: "https://arlberg-giro.com",  // [uncertain] domovská stránka pořadatele
     de: { zdroj: "arlberg-giro.com (Websuche 28. 9. 2026)" },
   },
-
   {
     id: "kufstein-2027", nazev: "Kufsteinerland Radmarathon",
     misto: "Kufstein", region: "Tirol", zeme: "AT",
@@ -495,6 +729,32 @@ export const ZAVODY: Zavod[] = [
     de: { zdroj: "sauwaldgiro.at (Countdown bis zum Start, 28. 9. 2026); Startgeld noch nicht angegeben" },
   },
   {
+    id: "zelenak-2027", nazev: "Tour de Zeleňák",
+    misto: "Rumburk", region: "Ústecký kraj", zeme: "CZ",
+    // 43. ročník, tradičně první zářijová sobota; přihlášky od 1. 6. 2027
+    datum: "2027-09-04", overeno: "ok", serie: null,
+    // okruh 54 km / 690 hm, dlouhá trasa = dva okruhy (106 km);
+    // převýšení dlouhé trasy pořadatel neuvádí → hm = null
+    trasy: [
+      { nazev: "Okruh", km: 54, hm: 690 },
+      { nazev: "Dva okruhy", km: 106, hm: null },
+    ],
+    uzavirky: "nezname", startovne: null,
+    web: "https://www.zelenak.cz",
+    zdroj: "zelenak.cz (vyhledávání 21. 10. 2026)",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 106,  // [uncertain] delší ze 2 tras
+    profile: "hilly",  // [uncertain] odvozeno z okruhu, hm/km = 12.8
+    startLocation: { city: "Rumburk", country: "CZ" },
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    de: {
+      region: "Region Ústí nad Labem",
+      zdroj: "zelenak.cz (Websuche 21. 10. 2026)",
+      trasy: ["Runde", "Zwei Runden"],
+    },
+  },
+  {
     id: "kitzbuehel-2027", nazev: "Kitzbüheler Radmarathon",
     misto: "Kitzbühel", region: "Tirol", zeme: "AT",
     datum: "2027-09-05", overeno: "check", serie: null,
@@ -518,7 +778,6 @@ export const ZAVODY: Zavod[] = [
     sourceUrl: "https://www.kitzbuehel.com/events/alle-highlight-veranstaltungen/kitzbueheler-radmarathon/",  // [uncertain]
     de: { zdroj: "kitzbuehel.com (Termin), kitzbueheler-radmarathon.at (Strecken), Websuche 27. 9. 2026" },
   },
-
   {
     id: "kotl-2027", nazev: "King of the Lake",
     misto: "Schörfling am Attersee", region: "Oberösterreich", zeme: "AT",
@@ -545,8 +804,35 @@ export const ZAVODY: Zavod[] = [
       trasy: ["Runde um den Attersee"],
     },
   },
+  {
+    id: "istria300-2027", nazev: "Istria300",
+    misto: "Poreč", region: "Istra", zeme: "HR",
+    // 7. ročník; přihlášky otevřeny 4. 10. 2026, limit 1 000 startujících
+    datum: "2027-10-02", overeno: "ok", serie: null,
+    // Pořadatel: trasy se každý rok mění, názvy zůstávají — Istria155 se
+    // může lišit o ±20 % (v minulosti měřila 168 km). Převýšení kratších
+    // tras pro rok 2027 zatím nezveřejněno, proto hm = null.
+    trasy: [
+      { nazev: "Istria155", km: 155, hm: null },   // [uncertain] nominální délka dle názvu
+      { nazev: "Istria235", km: 235, hm: null },   // [uncertain] nominální délka dle názvu
+      { nazev: "Istria300", km: 302, hm: 5300 },   // [uncertain] „cca“ dle stránky trasy
+    ],
+    uzavirky: "plna",  // pořadatel: plně uzavřené silnice
+    startovne: null,
+    web: "https://www.istria300.com",
+    zdroj: "istria300.com (vyhledávání 21. 10. 2026)",
 
-  // ─── 2027, termín zatím nevyhlášen ─────────────────────────────
+    /* ── rozšířená pole ── */
+    distanceKm: 302,   // [uncertain] nejdelší ze 3 tras
+    elevationM: 5300,  // [uncertain]
+    profile: "hilly",  // [uncertain] odvozeno z hm/km = 17.5
+    startLocation: { city: "Poreč", country: "HR" },
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    sourceUrl: "https://www.istria300.com/i300/course-concept/istria300/",  // [uncertain] z výpisu vyhledávání, nenačteno
+    de: { zdroj: "istria300.com (Websuche 21. 10. 2026)" },
+  },
+
+  // ─── 2027, termín zatím nevyhlášen ───────────────────────────────
   {
     id: "letape-rovinata-2027", nazev: "L'Etape Czech Republic — Rovinatá etapa",
     misto: "Pardubicko", region: "Pardubický kraj", zeme: "CZ",
@@ -573,52 +859,10 @@ export const ZAVODY: Zavod[] = [
     },
   },
   {
-    id: "carinthia200-2027", nazev: "Carinthia200",
-    misto: "Villach", region: "Kärnten", zeme: "AT",
-    datum: null, odhadMesic: "2027-09", overeno: "tbc", serie: null,
-    // Oprava: dřívější údaj "Mittel 105 km / 1304 hm" neodpovídá žádné
-    // vypsané trase. Pořadatel uvádí tři trasy; zdroj: carinthia200.com
-    trasy: [
-      { nazev: "125 km", km: 125, hm: 1575 },  // [uncertain]
-      { nazev: "155 km", km: 155, hm: 2630 },  // [uncertain]
-      { nazev: "200 km", km: 200, hm: 3285 },  // [uncertain]
-    ],
-    uzavirky: "nezname", startovne: null,
-    web: null, zdroj: "ročník 2026 pro orientaci",
-
-    /* ── rozšířená pole ── */
-    distanceKm: 200,   // [uncertain] nejdelší ze 3 tras
-    elevationM: 3285,  // [uncertain]
-    profile: "hilly",  // [uncertain] odvozeno z hm/km = 16.4
-    startLocation: { city: "Villach", country: "AT" },
-    status: "provisional",  // [uncertain] odvozeno z overeno="tbc"
-    de: { zdroj: "Ausgabe 2026 zur Orientierung" },
-  },
-  {
-    id: "istria300-2027", nazev: "Istria300",
-    misto: "Poreč", region: "Istra", zeme: "HR",
-    datum: null, odhadMesic: "2027-09", overeno: "tbc", serie: null,
-    trasy: [
-      { nazev: "Istria300", km: 300.5, hm: 5150 },  // [uncertain]
-      { nazev: "Istria209", km: 209, hm: 3250 },    // [uncertain]
-      { nazev: "Istria135", km: 134.5, hm: 1800 },  // [uncertain]
-    ],
-    uzavirky: "nezname", startovne: null,
-    web: "https://www.istria300.com",
-    zdroj: "termín 2027 zatím nevyhlášen; měsíc odhadnut podle ročníku 2025 (27. 9.), ročník 2026 byl mimořádně posunut na 3. 10.",
-
-    /* ── rozšířená pole ── */
-    distanceKm: 300.5,  // [uncertain] nejdelší ze 3 tras
-    elevationM: 5150,   // [uncertain]
-    profile: "hilly",   // [uncertain] odvozeno z hm/km = 17.1
-    startLocation: { city: "Poreč", country: "HR" },
-    status: "provisional",  // [uncertain] odvozeno z overeno="tbc"
-    de: { zdroj: "Termin 2027 noch nicht bekannt; Monat geschätzt nach der Ausgabe 2025 (27. 9.), die Ausgabe 2026 wurde ausnahmsweise auf den 3. 10. verschoben" },
-  },
-  {
     id: "zadar-2027", nazev: "Zadar Granfondo",
     misto: "Zadar", region: "Zadarska županija", zeme: "HR",
     datum: null, odhadMesic: "2027-10", overeno: "tbc", serie: null,
+    // granfondoguide.com uvádí 17. 10. 2027, ale jako nepotvrzený termín
     // Pozor: web pořadatele má podstránku "GRANFONDO 65km", granfondoguide.com
     // ale uvádí kratší trasu 56 km / 516 hm. Použito 56 km, rozpor k ověření.
     trasy: [
