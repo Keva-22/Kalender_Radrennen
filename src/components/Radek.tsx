@@ -1,5 +1,5 @@
 import type { Zavod } from "../types";
-import { profilTrasy, profilZavodu } from "../ui";
+import { cislo, nejdelsiTrasa, profilTrasy, profilZavodu } from "../ui";
 import { useTexty } from "../i18n";
 import { dnesniDatum, jeBudouci } from "../prihlasky";
 import { Detail } from "./Detail";
@@ -21,11 +21,7 @@ export function Radek({ zavod, otevreno, prepni }: Props) {
   const probehlo = !jeBudouci(zavod, dnesniDatum());
   // Vpravo vždy nejdelší trasa. Když u ní převýšení chybí, ukáže se „– hm"
   // a profil (barva, pruh) se dál počítá z nejdelší trasy se známým hm.
-  const nejdelsiKm = Math.max(0, ...zavod.trasy.map((tr) => tr.km ?? 0));
-  const hmNejdelsi =
-    p && p.trasa.km === nejdelsiKm
-      ? p.trasa.hm
-      : (zavod.trasy.find((tr) => tr.km === nejdelsiKm)?.hm ?? null);
+  const nejdelsi = nejdelsiTrasa(zavod);
   const nejiste = zavod.datum !== null && zavod.overeno === "check" && !probehlo;
 
   return (
@@ -87,7 +83,7 @@ export function Radek({ zavod, otevreno, prepni }: Props) {
                 {t.profily[p.profil.klic]}
               </span>
               <span className="profil-pomer">
-                {p.pomer.toFixed(1).replace(".", ",")} {t.jednotkaHm}/km
+                {cislo(Number(p.pomer.toFixed(1)))} {t.jednotkaHm}/km
               </span>
             </div>
           )}
@@ -104,7 +100,7 @@ export function Radek({ zavod, otevreno, prepni }: Props) {
                   className={"trasa-cip" + (pt ? ` trasa-cip--${pt.klic}` : "")}
                   title={tr.nazev}
                 >
-                  <strong>{tr.km ?? "?"} km</strong>
+                  <strong>{tr.km !== null ? cislo(tr.km) : "?"} km</strong>
                   {tr.hm !== null && (
                     <>
                       {" "}
@@ -118,18 +114,18 @@ export function Radek({ zavod, otevreno, prepni }: Props) {
         )}
 
         <div className="radek-cisla">
-          {nejdelsiKm > 0 ? (
+          {nejdelsi ? (
             <>
-              <div className="radek-km">{nejdelsiKm} km</div>
-              {hmNejdelsi !== null ? (
+              <div className="radek-km">{cislo(nejdelsi.km)} km</div>
+              {nejdelsi.hm !== null ? (
                 <div className="radek-hm">
                   <span
-                    className={`profil--${profilTrasy(nejdelsiKm, hmNejdelsi).klic}`}
+                    className={`profil--${profilTrasy(nejdelsi.km, nejdelsi.hm).klic}`}
                     aria-hidden="true"
                   >
                     ▲{" "}
                   </span>
-                  {hmNejdelsi} {t.jednotkaHm}
+                  {nejdelsi.hm} {t.jednotkaHm}
                 </div>
               ) : (
                 <div className="radek-hm radek-hm--chybi" title={t.nedoplneno}>

@@ -1,10 +1,16 @@
 import type { Zavod } from "../types";
-import { profilTrasy } from "../ui";
+import { cislo, datumSlovy, profilTrasy } from "../ui";
 import { useTexty } from "../i18n";
 import { PRIHLASKY_ZAPNUTE, dnesniDatum, jeBudouci } from "../prihlasky";
 
 export function Detail({ zavod }: { zavod: Zavod }) {
   const t = useTexty();
+  const dnes = dnesniDatum();
+  // uzávěrka se ukazuje, jen dokud ještě neuplynula
+  const uzaverka =
+    zavod.registrationDeadline && zavod.registrationDeadline >= dnes
+      ? zavod.registrationDeadline
+      : null;
   return (
     <div className="detail">
       {zavod.trasy.length > 0 ? (
@@ -27,7 +33,7 @@ export function Detail({ zavod }: { zavod: Zavod }) {
                 <tr key={trasa.nazev}>
                   <td>{trasa.nazev}</td>
                   <td className={trasa.km === null ? "nedoplneno" : undefined}>
-                    {trasa.km ?? t.nedoplneno}
+                    {trasa.km !== null ? cislo(trasa.km) : t.nedoplneno}
                   </td>
                   <td className={"hm" + (trasa.hm === null ? " nedoplneno" : "")}>
                     {trasa.hm ?? t.nedoplneno}
@@ -62,6 +68,12 @@ export function Detail({ zavod }: { zavod: Zavod }) {
             {zavod.startovne ?? t.nedoplneno}
           </div>
         </div>
+        {uzaverka && (
+          <div className="detail-blok">
+            <div className="detail-popisek">{t.uzaverkaPrihlasek}</div>
+            <div className="detail-hodnota">{datumSlovy(uzaverka)}</div>
+          </div>
+        )}
       </div>
 
       <div className="detail-pata">
@@ -77,7 +89,7 @@ export function Detail({ zavod }: { zavod: Zavod }) {
         ) : (
           <span className="detail-bez-webu">{t.odkazNedoplnen}</span>
         )}
-        {PRIHLASKY_ZAPNUTE && jeBudouci(zavod, dnesniDatum()) && (
+        {PRIHLASKY_ZAPNUTE && jeBudouci(zavod, dnes) && (
           <a className="detail-odkaz" href={`#mitfahren/${zavod.id}`}>
             {t.kdoJede}
           </a>

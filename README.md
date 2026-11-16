@@ -286,3 +286,11 @@ Kontrola dat: 25 z 25 závodů nemá doplněná všechna rozšířená pole
 - Volitelné pole `profile` má **jinou, hrubší škálu** (`flat` / `hilly` /
   `mountain`) a na zobrazení nemá vliv.
 - Chybějící `km`, `hm` a `startovne` se zobrazují jako „nedoplněno".
+- Sezóny v přepínači se berou z dat. Po otevření se ukáže sezóna nejbližšího
+  závodu, který se teprve pojede.
+- Vpravo v řádku je vždy nejdelší trasa; když u ní chybí převýšení, je
+  tam „– hm". Čísla se zobrazují s desetinnou čárkou (`197.4` → „197,4").
+- `registrationDeadline` se v detailu ukáže jako „Uzávěrka přihlášek",
+  dokud datum neuplynulo.
+- Kalendářový pohled: na širších displejích jsou názvy závodů v buňkách,
+  na telefonu jen barevné značky profilu a pod mřížkou seznam závodů měsíce.

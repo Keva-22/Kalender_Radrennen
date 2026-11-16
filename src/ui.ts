@@ -48,6 +48,30 @@ export function profilZavodu(zavod: Zavod): ProfilZavodu | null {
   };
 }
 
+/** Nejdelší trasa závodu; při shodě délky ta se známým převýšením.
+    null, když žádná trasa nemá délku. Tu ukazuje řádek i karta v hlavičce. */
+export function nejdelsiTrasa(zavod: Zavod): { km: number; hm: number | null } | null {
+  let nej: { km: number; hm: number | null } | null = null;
+  for (const t of zavod.trasy) {
+    if (t.km === null) continue;
+    if (nej === null || t.km > nej.km || (t.km === nej.km && nej.hm === null)) {
+      nej = { km: t.km, hm: t.hm };
+    }
+  }
+  return nej;
+}
+
+/** Číslo pro zobrazení s desetinnou čárkou (česky, německy i italsky stejně). */
+export function cislo(n: number): string {
+  return String(n).replace(".", ",");
+}
+
+/** 'YYYY-MM-DD' → '9. 6. 2027'. */
+export function datumSlovy(datum: string): string {
+  const [rok, mesic, den] = datum.split("-").map(Number);
+  return `${den}. ${mesic}. ${rok}`;
+}
+
 /** Počet dní z data `dnes` do data `datum` (obě 'YYYY-MM-DD'). */
 export function dniDo(datum: string, dnes: string): number {
   const poledne = (d: string) => new Date(d + "T12:00:00").getTime();

@@ -16,18 +16,21 @@ export const ZAVODY: Zavod[] = [
   {
     id: "oetztaler-2026", nazev: "Ötztaler Radmarathon",
     misto: "Sölden", region: "Tirol", zeme: "AT",
-    datum: "2026-08-30", overeno: "check", serie: null,
+    // 45. ročník se jel 30. 8. 2026 (4 271 startujících) — potvrzeno reportážemi
+    datum: "2026-08-30", overeno: "ok", serie: null,
     trasy: [{ nazev: "Marathon", km: 227, hm: 5500 }],
     uzavirky: "nezname", startovne: null,
     web: "https://www.oetztaler-radmarathon.com",
-    zdroj: "tirol.at",
+    zdroj: "eurosport.de, rennrad-news.de (reportáže ze závodu)",
 
     /* ── rozšířená pole ── */
     distanceKm: 227,
     elevationM: 5500,
     profile: "mountain",  // [uncertain] odvozeno z hm/km = 24.2
     startLocation: { city: "Sölden", country: "AT" },
-    status: "provisional",  // [uncertain] odvozeno z overeno="check"
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    de: { zdroj: "eurosport.de, rennrad-news.de (Rennberichte)" },
+    it: { zdroj: "eurosport.de, rennrad-news.de (resoconti di gara)" },
   },
   {
     id: "sauwald-2026", nazev: "SauwaldGiro",
@@ -133,16 +136,17 @@ export const ZAVODY: Zavod[] = [
   {
     id: "zadar-2026", nazev: "Zadar Granfondo",
     misto: "Zadar", region: "Zadarska županija", zeme: "HR",
-    datum: "2026-10-18", overeno: "check", serie: null,
-    // Pozor: web pořadatele má podstránku "GRANFONDO 65km", granfondoguide.com
-    // ale uvádí kratší trasu 56 km / 516 hm. Použito 56 km, rozpor k ověření.
+    // 7. ročník se jel v neděli 18. 10. 2026 (516 účastníků). Výsledky jsou
+    // vypsané pro trasy 112 km a 56 km, tím je vyřešen dřívější rozpor
+    // 56 / 65 km (podstránka "GRANFONDO 65km" na webu pořadatele je starší).
+    datum: "2026-10-18", overeno: "ok", serie: null,
     trasy: [
-      { nazev: "112 km", km: 112, hm: 1034 },  // [uncertain]
-      { nazev: "56 km", km: 56, hm: 516 },     // [uncertain] rozpor 56 / 65 km
+      { nazev: "112 km", km: 112, hm: 1034 },  // [uncertain] hm z granfondoguide.com
+      { nazev: "56 km", km: 56, hm: 516 },     // [uncertain] hm z granfondoguide.com
     ],
     uzavirky: "nezname", startovne: null,
     web: "https://www.zadargranfondo.com",
-    zdroj: "granfondoguide.com, zadargranfondo.com (vyhledávání 27. 9. 2026)",
+    zdroj: "znet.hr, granfondodailynews.com (výsledky), granfondoguide.com (trasy)",
 
     /* ── rozšířená pole ── */
     distanceKm: 112,   // [uncertain] delší ze 2 tras
@@ -150,17 +154,19 @@ export const ZAVODY: Zavod[] = [
     profile: "hilly",  // [uncertain] odvozeno z hm/km = 9.2
     // start i cíl u Falkensteiner Resort Borik
     startLocation: { city: "Zadar", country: "HR" },
-    status: "provisional",  // [uncertain] odvozeno z overeno="check"
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     sourceUrl: "https://www.granfondoguide.com/Events/Index/8778/zadar-granfondo",  // [uncertain]
-    de: { zdroj: "granfondoguide.com, zadargranfondo.com (Websuche 27. 9. 2026)" },
-    it: { zdroj: "granfondoguide.com, zadargranfondo.com (ricerca web 27. 9. 2026)" },
+    de: { zdroj: "znet.hr, granfondodailynews.com (Ergebnisse), granfondoguide.com (Strecken)" },
+    it: { zdroj: "znet.hr, granfondodailynews.com (risultati), granfondoguide.com (percorsi)" },
   },
 
   // ─── 2027 ────────────────────────────────────────────────────────
   {
     id: "istria-gf-2027", nazev: "UCI Istria Gran Fondo",
     misto: "Umag", region: "Istra", zeme: "HR",
-    // termín ze zpráv a turistického webu, ne přímo od pořadatele
+    // coloursofistria.com (web akce) zve na 3. 4. 2027 a stejné datum mají
+    // i kalendáře série; jedna věta téže stránky ale píše "Saturday, 4 April"
+    // (sobota je 3. 4.) → zůstává k ověření
     datum: "2027-04-03", overeno: "check", serie: "UCI Gran Fondo World Series",
     // Převýšení se mezi zdroji (vesměs z roku 2026) rozchází:
     // 105 km 1 545–1 745 hm, 80 km 1 071–1 254 hm → zatím hm = null.
@@ -170,7 +176,7 @@ export const ZAVODY: Zavod[] = [
     ],
     uzavirky: "nezname", startovne: null,
     web: "https://ucigranfondoworldseries.com/en/istria-gran-fondo/",
-    zdroj: "3sporta.com, coloursofistria.com, ucigranfondoworldseries.com (vyhledávání 21. 10. 2026)",
+    zdroj: "coloursofistria.com, 3sporta.com (vyhledávání 16. 11. 2026)",
 
     /* ── rozšířená pole ── */
     distanceKm: 105,  // [uncertain] delší ze 2 tras
@@ -178,8 +184,8 @@ export const ZAVODY: Zavod[] = [
     registrationDeadline: "2027-04-01",  // [uncertain] přihlášky do 1. 4. 2027 dle 3sporta.com
     series: "UCI Gran Fondo World Series",
     status: "provisional",  // [uncertain] odvozeno z overeno="check"
-    de: { zdroj: "3sporta.com, coloursofistria.com, ucigranfondoworldseries.com (Websuche 21. 10. 2026)" },
-    it: { zdroj: "3sporta.com, coloursofistria.com, ucigranfondoworldseries.com (ricerca web 21. 10. 2026)" },
+    de: { zdroj: "coloursofistria.com, 3sporta.com (Websuche 16. 11. 2026)" },
+    it: { zdroj: "coloursofistria.com, 3sporta.com (ricerca web 16. 11. 2026)" },
   },
   {
     id: "krk-2027", nazev: "Krk Granfondo",
@@ -598,8 +604,9 @@ export const ZAVODY: Zavod[] = [
   {
     id: "maratona-2027", nazev: "Maratona dles Dolomites",
     misto: "Alta Badia (La Villa → Corvara)", region: "Jižní Tyrolsko", zeme: "IT",
-    // 40. ročník (téma MÜJIGA); předregistrace do 10. 11. 2026,
-    // potvrzení přihlášky do 26. 5. 2027
+    // 40. ročník (téma MÜJIGA). Předregistrace do losování skončila
+    // 10. 11. 2026, losuje se ve druhé polovině listopadu. Výši startovného
+    // uvádějí zdroje různě (165–185 €), proto zde není.
     datum: "2027-07-04", overeno: "ok", serie: null,
     trasy: [
       { nazev: "Sellaronda", km: 55, hm: 1780 },  // [uncertain] hm z discoveryalps.it / dalzero.it
@@ -607,27 +614,27 @@ export const ZAVODY: Zavod[] = [
       { nazev: "Maratona", km: 138, hm: 4230 },
     ],
     uzavirky: "nezname",
-    startovne: "předregistrace 3 € do 10. 11. 2026",
+    startovne: "předregistrace do losování skončila 10. 11. 2026 · charitativní startovné v prodeji 25. 11. 2026 a 18. 3. 2027",
     web: "https://www.maratona.it",
-    zdroj: "maratona.it (vyhledávání 21. 10. 2026)",
+    zdroj: "maratona.it, sportive.com (vyhledávání 16. 11. 2026)",
 
     /* ── rozšířená pole ── */
     distanceKm: 138,
     elevationM: 4230,
     profile: "mountain",  // [uncertain] odvozeno z hm/km = 30.7
     startLocation: { city: "La Villa", country: "IT" },
-    entryFee: "předregistrace 3 € do 10. 11. 2026",
+    entryFee: "předregistrace do losování skončila 10. 11. 2026 · charitativní startovné v prodeji 25. 11. 2026 a 18. 3. 2027",
     registrationDeadline: "2026-11-10",  // [uncertain] konec předregistrace, ne samotné přihlášky
     status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     de: {
       region: "Südtirol",
-      startovne: "Vorregistrierung 3 € bis 10. 11. 2026",
-      zdroj: "maratona.it (Websuche 21. 10. 2026)",
+      startovne: "Voranmeldung zur Verlosung endete am 10. 11. 2026 · Charity-Startplätze im Verkauf am 25. 11. 2026 und 18. 3. 2027",
+      zdroj: "maratona.it, sportive.com (Websuche 16. 11. 2026)",
     },
     it: {
       region: "Alto Adige",
-      startovne: "preiscrizione 3 € fino al 10. 11. 2026",
-      zdroj: "maratona.it (ricerca web 21. 10. 2026)",
+      startovne: "preiscrizione al sorteggio chiusa il 10. 11. 2026 · iscrizioni di beneficenza in vendita il 25. 11. 2026 e il 18. 3. 2027",
+      zdroj: "maratona.it, sportive.com (ricerca web 16. 11. 2026)",
     },
   },
   {
@@ -720,8 +727,9 @@ export const ZAVODY: Zavod[] = [
   {
     id: "kufstein-2027", nazev: "Kufsteinerland Radmarathon",
     misto: "Kufstein", region: "Tirol", zeme: "AT",
-    // 22. 8. 2027 zatím jen jako pravděpodobný termín (uživatel, 28. 9. 2026)
-    datum: "2027-08-22", overeno: "check",
+    // pořadatel uvádí 22. 8. 2027 (i na stránce Tiroler Rennrad Cupu);
+    // přihlášky běží od podzimu 2026, startovné roste podle data přihlášení
+    datum: "2027-08-22", overeno: "ok",
     serie: "Tiroler Rennrad Cup",
     // km/hm dle 10. ročníku (23. 8. 2026); zdroj: kufsteinerland-radmarathon.at
     trasy: [
@@ -731,7 +739,7 @@ export const ZAVODY: Zavod[] = [
     ],
     uzavirky: "nezname", startovne: null,
     web: "https://www.kufsteinerland-radmarathon.at",
-    zdroj: "kufsteinerland-radmarathon.at (pravděpodobný termín, 28. 9. 2026); trasy dle ročníku 2026",
+    zdroj: "kufsteinerland-radmarathon.at (vyhledávání 16. 11. 2026); trasy dle ročníku 2026",
 
     /* ── rozšířená pole ── */
     distanceKm: 120,   // [uncertain] nejdelší ze 3 tras, ročník 2026
@@ -739,29 +747,32 @@ export const ZAVODY: Zavod[] = [
     profile: "hilly",  // [uncertain] odvozeno z hm/km = 15.0
     startLocation: { city: "Kufstein", country: "AT" },
     series: "Tiroler Rennrad Cup",
-    status: "provisional",  // [uncertain] odvozeno z overeno="check"
-    de: { zdroj: "kufsteinerland-radmarathon.at (voraussichtlicher Termin, 28. 9. 2026); Strecken laut Ausgabe 2026" },
-    it: { zdroj: "kufsteinerland-radmarathon.at (data probabile, 28. 9. 2026); percorsi secondo l'edizione 2026" },
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    de: { zdroj: "kufsteinerland-radmarathon.at (Websuche 16. 11. 2026); Strecken laut Ausgabe 2026" },
+    it: { zdroj: "kufsteinerland-radmarathon.at (ricerca web 16. 11. 2026); percorsi secondo l'edizione 2026" },
   },
   {
     id: "oetztaler-2027", nazev: "Ötztaler Radmarathon",
     misto: "Sölden", region: "Tirol", zeme: "AT",
-    datum: "2027-08-29", overeno: "check", serie: null,
+    // soelden.com (pořadatel Ötztal Tourismus): neděle 29. 8. 2027, start 6:30,
+    // 4 000 startujících. Startovní místa se losují; termín přihlášek do
+    // losování pro rok 2027 zatím zveřejněn není (loni v lednu).
+    datum: "2027-08-29", overeno: "ok", serie: null,
     trasy: [{ nazev: "Marathon", km: 227, hm: 5500 }],
     uzavirky: "nezname", startovne: null,
     web: "https://www.oetztaler-radmarathon.com",
-    zdroj: "termín: central-soelden.com + intervalcoach.app (vyhledávání 27. 9. 2026); trasa dle ročníku 2026",
+    zdroj: "soelden.com (vyhledávání 16. 11. 2026)",
 
     /* ── rozšířená pole ── */
     distanceKm: 227,
     elevationM: 5500,
     profile: "mountain",  // [uncertain] odvozeno z hm/km = 24.2
+    startTime: "06:30",
     startLocation: { city: "Sölden", country: "AT" },
-    status: "provisional",  // [uncertain] odvozeno z overeno="check"
-    de: { zdroj: "Termin: central-soelden.com + intervalcoach.app (Websuche 27. 9. 2026); Strecke laut Ausgabe 2026" },
-    it: {
-      zdroj: "Data: central-soelden.com + intervalcoach.app (ricerca web 27. 9. 2026); percorso secondo l'edizione 2026",
-    },
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    sourceUrl: "https://www.soelden.com/en/events-leisure-tips/events/oetztaler-cycle-marathon",  // [uncertain] z výpisu vyhledávání, nenačteno
+    de: { zdroj: "soelden.com (Websuche 16. 11. 2026)" },
+    it: { zdroj: "soelden.com (ricerca web 16. 11. 2026)" },
   },
   {
     id: "sauwald-2027", nazev: "SauwaldGiro",
@@ -827,27 +838,37 @@ export const ZAVODY: Zavod[] = [
   {
     id: "kitzbuehel-2027", nazev: "Kitzbüheler Radmarathon",
     misto: "Kitzbühel", region: "Tirol", zeme: "AT",
-    datum: "2027-09-05", overeno: "check", serie: null,
+    // termín i začátek přihlášek ("Anmeldung ab 01.12.2026 möglich!") z webu
+    // pořadatele; ročník 2026 byl vyprodaný, pořadatel radí přihlásit se brzy
+    datum: "2027-09-05", overeno: "ok", serie: null,
     // hlavní trasa končí výjezdem na Kitzbüheler Horn, KRM Kitz cílí ve Vorderstadt
     trasy: [
       { nazev: "Marathon", km: 216, hm: 4600 },  // [uncertain]
       { nazev: "KRM Kitz", km: 209, hm: 3800 },  // [uncertain]
     ],
-    uzavirky: "nezname", startovne: null,
+    uzavirky: "nezname",
+    startovne: "přihlášky od 1. 12. 2026 · ročník 2026 byl vyprodaný",
     web: "https://kitzbueheler-radmarathon.at",
-    zdroj: "kitzbuehel.com (termín), kitzbueheler-radmarathon.at (trasy), vyhledávání 27. 9. 2026",
+    zdroj: "kitzbueheler-radmarathon.at (vyhledávání 16. 11. 2026)",
 
     /* ── rozšířená pole ── */
     distanceKm: 216,   // [uncertain] nejdelší ze 2 tras
     elevationM: 4600,  // [uncertain]
     profile: "hilly",  // [uncertain] odvozeno z hm/km = 21.3
     startLocation: { city: "Kitzbühel", country: "AT" },
-    status: "provisional",  // [uncertain] odvozeno z overeno="check"
+    entryFee: "přihlášky od 1. 12. 2026 · ročník 2026 byl vyprodaný",
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
     registrationUrl: "https://kitzbueheler-radmarathon.at/anmeldung/",  // [uncertain] z výpisu vyhledávání, nenačteno
     resultsUrl: "https://kitzbueheler-radmarathon.at/rennen/ergebnisse/",  // [uncertain] z výpisu vyhledávání, nenačteno
     sourceUrl: "https://www.kitzbuehel.com/events/alle-highlight-veranstaltungen/kitzbueheler-radmarathon/",  // [uncertain]
-    de: { zdroj: "kitzbuehel.com (Termin), kitzbueheler-radmarathon.at (Strecken), Websuche 27. 9. 2026" },
-    it: { zdroj: "kitzbuehel.com (data), kitzbueheler-radmarathon.at (percorsi), ricerca web 27. 9. 2026" },
+    de: {
+      startovne: "Anmeldung ab 1. 12. 2026 · Ausgabe 2026 war ausverkauft",
+      zdroj: "kitzbueheler-radmarathon.at (Websuche 16. 11. 2026)",
+    },
+    it: {
+      startovne: "iscrizioni dal 1. 12. 2026 · edizione 2026 esaurita",
+      zdroj: "kitzbueheler-radmarathon.at (ricerca web 16. 11. 2026)",
+    },
   },
   {
     id: "kotl-2027", nazev: "King of the Lake",
@@ -907,6 +928,33 @@ export const ZAVODY: Zavod[] = [
     de: { zdroj: "istria300.com (Websuche 21. 10. 2026)" },
     it: { zdroj: "istria300.com (ricerca web 21. 10. 2026)" },
   },
+  {
+    id: "zadar-2027", nazev: "Zadar Granfondo",
+    misto: "Zadar", region: "Zadarska županija", zeme: "HR",
+    // 8. ročník: stránka přihlášek pořadatele uvádí "17. listopada 2027"
+    // (chorvatsky listopad = říjen); granfondoguide.com má termín jako
+    // potvrzený, přihlášky od 20. 10. 2026. Limit 600 účastníků.
+    datum: "2027-10-17", overeno: "ok", serie: null,
+    // trasy dle ročníku 2026 (výsledky byly vypsané pro 112 a 56 km)
+    trasy: [
+      { nazev: "112 km", km: 112, hm: 1034 },  // [uncertain] údaj ročníku 2026
+      { nazev: "56 km", km: 56, hm: 516 },     // [uncertain] údaj ročníku 2026
+    ],
+    uzavirky: "nezname", startovne: null,
+    web: "https://www.zadargranfondo.com",
+    zdroj: "zadargranfondo.com (vyhledávání 16. 11. 2026); trasy dle ročníku 2026",
+
+    /* ── rozšířená pole ── */
+    distanceKm: 112,   // [uncertain] delší ze 2 tras
+    elevationM: 1034,  // [uncertain]
+    profile: "hilly",  // [uncertain] odvozeno z hm/km = 9.2
+    // start i cíl u Falkensteiner Resort Borik
+    startLocation: { city: "Zadar", country: "HR" },
+    status: "confirmed",  // [uncertain] odvozeno z overeno="ok"
+    sourceUrl: "https://www.zadargranfondo.com/hr/registriraj-se-zadargranfondo/",  // [uncertain] z výpisu vyhledávání, nenačteno
+    de: { zdroj: "zadargranfondo.com (Websuche 16. 11. 2026); Strecken laut Ausgabe 2026" },
+    it: { zdroj: "zadargranfondo.com (ricerca web 16. 11. 2026); percorsi secondo l'edizione 2026" },
+  },
 
   // ─── 2027, termín zatím nevyhlášen ───────────────────────────────
   {
@@ -940,31 +988,6 @@ export const ZAVODY: Zavod[] = [
       zdroj: "edizione 2026 come riferimento",
       trasy: ["Percorso principale"],
     },
-  },
-  {
-    id: "zadar-2027", nazev: "Zadar Granfondo",
-    misto: "Zadar", region: "Zadarska županija", zeme: "HR",
-    datum: null, odhadMesic: "2027-10", overeno: "tbc", serie: null,
-    // granfondoguide.com uvádí 17. 10. 2027, ale jako nepotvrzený termín
-    // Pozor: web pořadatele má podstránku "GRANFONDO 65km", granfondoguide.com
-    // ale uvádí kratší trasu 56 km / 516 hm. Použito 56 km, rozpor k ověření.
-    trasy: [
-      { nazev: "112 km", km: 112, hm: 1034 },  // [uncertain]
-      { nazev: "56 km", km: 56, hm: 516 },     // [uncertain] rozpor 56 / 65 km
-    ],
-    uzavirky: "nezname", startovne: null,
-    web: "https://www.zadargranfondo.com",
-    zdroj: "ročník 2026 pro orientaci",
-
-    /* ── rozšířená pole ── */
-    distanceKm: 112,   // [uncertain] delší ze 2 tras
-    elevationM: 1034,  // [uncertain]
-    profile: "hilly",  // [uncertain] odvozeno z hm/km = 9.2
-    // start i cíl u Falkensteiner Resort Borik
-    startLocation: { city: "Zadar", country: "HR" },
-    status: "provisional",  // [uncertain] odvozeno z overeno="tbc"
-    de: { zdroj: "Ausgabe 2026 zur Orientierung" },
-    it: { zdroj: "edizione 2026 come riferimento" },
   },
 ];
 

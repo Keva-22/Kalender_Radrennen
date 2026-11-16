@@ -1,6 +1,7 @@
 import type { Zavod } from "../types";
-import { profilZavodu } from "../ui";
+import { cislo, nejdelsiTrasa, profilZavodu } from "../ui";
 import { useTexty } from "../i18n";
+import { dnesniDatum, jeBudouci } from "../prihlasky";
 
 interface Props {
   zavody: Zavod[];
@@ -19,6 +20,19 @@ export function Mrizka({ zavody, mesic, naKlik }: Props) {
     ...Array.from({ length: pocetDni }, (_, i) => i + 1),
   ];
   const bezTerminu = zavody.filter((z) => !z.datum).length;
+  const dnes = dnesniDatum();
+
+  /* Stav závodu jako třídy: barva profilu, „?" u termínu k ověření,
+     ztlumení u proběhlých. */
+  function stav(z: Zavod): { profil: string; nejiste: boolean; probehlo: boolean } {
+    const p = profilZavodu(z);
+    const probehlo = !jeBudouci(z, dnes);
+    return {
+      profil: p ? p.profil.klic : "",
+      nejiste: z.datum !== null && z.overeno === "check" && !probehlo,
+      probehlo,
+    };
+  }
 
   return (
     <div className="mrizka-obal">
@@ -40,17 +54,21 @@ export function Mrizka({ zavody, mesic, naKlik }: Props) {
             >
               <div className="mrizka-cislo">{den}</div>
               {dnesni.map((z) => {
-                const p = profilZavodu(z);
+                const s = stav(z);
                 return (
                   <button
                     key={z.id}
                     className={
-                      "mrizka-zavod" + (p ? ` okraj--${p.profil.klic}` : "")
+                      "mrizka-zavod" +
+                      (s.profil ? ` okraj--${s.profil}` : "") +
+                      (s.nejiste ? " mrizka-zavod--nejiste" : "") +
+                      (s.probehlo ? " mrizka-zavod--probehlo" : "")
                     }
                     onClick={() => naKlik(z.id)}
-                    title={z.nazev}
+                    title={s.nejiste ? `${z.nazev} (${t.terminKOvereni})` : z.nazev}
+                    aria-label={s.nejiste ? `${z.nazev} (${t.terminKOvereni})` : z.nazev}
                   >
-                    {z.nazev}
+                    <span className="mrizka-zavod-nazev">{z.nazev}</span>
                   </button>
                 );
               })}
@@ -58,9 +76,46 @@ export function Mrizka({ zavody, mesic, naKlik }: Props) {
           );
         })}
       </div>
+
       {bezTerminu > 0 && (
         <div className="mrizka-tbc">{t.bezTerminu(bezTerminu)}</div>
       )}
+
+      {/* Seznam závodů měsíce pod mřížkou. Na telefonu všechny (v buňkách
+          jsou jen barevné značky), na širších displejích jen ty bez termínu. */}
+      <ul className="mrizka-seznam">
+        {zavody.map((z) => {
+          const s = stav(z);
+          const nejdelsi = nejdelsiTrasa(z);
+          return (
+            <li
+              key={z.id}
+              className={
+                "mrizka-polozka" +
+                (z.datum === null ? " mrizka-polozka--tbc" : "") +
+                (s.probehlo ? " mrizka-polozka--probehlo" : "")
+              }
+            >
+              <button onClick={() => naKlik(z.id)}>
+                <span
+                  className={
+                    "mrizka-polozka-den" + (s.nejiste ? " mrizka-polozka-den--nejiste" : "")
+                  }
+                >
+                  {z.datum !== null ? `${Number(z.datum.slice(8))}.` : t.tbc}
+                  {s.nejiste && <span className="jen-ctecka"> {t.terminKOvereni}</span>}
+                </span>
+                <span
+                  className={"mrizka-polozka-tecka" + (s.profil ? ` pruh--${s.profil}` : "")}
+                  aria-hidden="true"
+                />
+                <span className="mrizka-polozka-nazev">{z.nazev}</span>
+                {nejdelsi && <span className="mrizka-polozka-km">{cislo(nejdelsi.km)} km</span>}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

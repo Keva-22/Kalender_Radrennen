@@ -41,6 +41,7 @@ export interface Texty {
   trasyNedoplneny: string;
   silnice: string;
   startovne: string;
+  uzaverkaPrihlasek: string;
   oficialniWeb: string;
   odkazNedoplnen: string;
   zdroj: string;
@@ -112,6 +113,7 @@ const CS: Texty = {
   trasyNedoplneny: "Trasy zatím nedoplněny.",
   silnice: "Silnice",
   startovne: "Startovné",
+  uzaverkaPrihlasek: "Uzávěrka přihlášek",
   oficialniWeb: "Oficiální web →",
   odkazNedoplnen: "odkaz nedoplněn",
   zdroj: "zdroj:",
@@ -193,6 +195,7 @@ const DE: Texty = {
   trasyNedoplneny: "Strecken noch nicht erfasst.",
   silnice: "Straßen",
   startovne: "Startgeld",
+  uzaverkaPrihlasek: "Anmeldeschluss",
   oficialniWeb: "Offizielle Website →",
   odkazNedoplnen: "kein Link hinterlegt",
   zdroj: "Quelle:",
@@ -271,6 +274,7 @@ const IT: Texty = {
   trasyNedoplneny: "Percorsi non ancora inseriti.",
   silnice: "Strade",
   startovne: "Iscrizione",
+  uzaverkaPrihlasek: "Chiusura iscrizioni",
   oficialniWeb: "Sito ufficiale →",
   odkazNedoplnen: "link non disponibile",
   zdroj: "fonte:",

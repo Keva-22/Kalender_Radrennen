@@ -3,13 +3,16 @@ import type { Zavod, Zeme } from "./types";
 import { ZAVODY } from "./data/zavody";
 import {
   PROFILY,
+  cislo,
   dniDo,
   klicMesice,
+  nejdelsiTrasa,
   porovnejZavody,
+  profilTrasy,
   profilZavodu,
   type KlicProfilu,
 } from "./ui";
-import { PRIHLASKY_ZAPNUTE, dnesniDatum } from "./prihlasky";
+import { PRIHLASKY_ZAPNUTE, dnesniDatum, jeBudouci } from "./prihlasky";
 import {
   NAZVY_JAZYKU,
   TEXTY,
@@ -25,7 +28,16 @@ import { Prihlasky } from "./components/Prihlasky";
 import { Vlajka } from "./components/Vlajka";
 import { Logo } from "./components/Logo";
 
-const SEZONY = ["2026", "2027"];
+/* Sezóny se berou z dat; nová přibude sama s prvním závodem dalšího roku. */
+const SEZONY = [...new Set(ZAVODY.map((z) => klicMesice(z).slice(0, 4)))].sort();
+
+/* Po otevření se ukáže sezóna nejbližšího závodu, který se teprve pojede;
+   když už žádný není, poslední sezóna. */
+function vychoziSezona(): string {
+  const dnes = dnesniDatum();
+  const dalsi = ZAVODY.filter((z) => jeBudouci(z, dnes)).sort(porovnejZavody)[0];
+  return dalsi ? klicMesice(dalsi).slice(0, 4) : SEZONY[SEZONY.length - 1];
+}
 const JAZYKY: Jazyk[] = ["cs", "de", "it"];
 const POCET_ZEMI = new Set(ZAVODY.map((z) => z.zeme)).size;
 
@@ -66,8 +78,8 @@ function strankaZHash(): Stranka {
 export default function App() {
   const [stranka, setStranka] = useState<Stranka>(strankaZHash);
   const [jazyk, setJazyk] = useState<Jazyk>(vychoziJazyk);
-  const [sezona, setSezona] = useState(
-    ZAVOD_Z_URL ? klicMesice(ZAVOD_Z_URL).slice(0, 4) : "2027",
+  const [sezona, setSezona] = useState(() =>
+    ZAVOD_Z_URL ? klicMesice(ZAVOD_Z_URL).slice(0, 4) : vychoziSezona(),
   );
   const [zeme, setZeme] = useState<Zeme | "vse">("vse");
   const [pohled, setPohled] = useState<"seznam" | "kalendar">("seznam");
@@ -178,7 +190,8 @@ export default function App() {
   }
 
   const dalsi = nejblizsi ? lokalizujZavod(nejblizsi.zavod, jazyk) : null;
-  const dalsiProfil = dalsi ? profilZavodu(dalsi) : null;
+  // na kartě stejně jako v řádku: nejdelší trasa, převýšení jen když je známé
+  const dalsiTrasa = dalsi ? nejdelsiTrasa(dalsi) : null;
   const dalsiDatum = dalsi?.datum ? new Date(dalsi.datum + "T12:00:00") : null;
 
   if (stranka.typ === "prihlasky") {
@@ -245,15 +258,21 @@ export default function App() {
                 {t.dnyZkratky[dalsiDatum.getDay()]} {dalsiDatum.getDate()}.{" "}
                 {dalsiDatum.getMonth() + 1}. {dalsiDatum.getFullYear()} · {dalsi.misto}
               </span>
-              {dalsiProfil && (
+              {dalsiTrasa && (
                 <span className="hero-karta-cisla">
-                  <strong>{dalsiProfil.trasa.km} km</strong>
-                  <span>
-                    ▲ {dalsiProfil.trasa.hm} {t.jednotkaHm}
-                  </span>
-                  <span className={`profil-popisek profil--${dalsiProfil.profil.klic}`}>
-                    {t.profily[dalsiProfil.profil.klic]}
-                  </span>
+                  <strong>{cislo(dalsiTrasa.km)} km</strong>
+                  {dalsiTrasa.hm !== null && (
+                    <>
+                      <span>
+                        ▲ {dalsiTrasa.hm} {t.jednotkaHm}
+                      </span>
+                      <span
+                        className={`profil-popisek profil--${profilTrasy(dalsiTrasa.km, dalsiTrasa.hm).klic}`}
+                      >
+                        {t.profily[profilTrasy(dalsiTrasa.km, dalsiTrasa.hm).klic]}
+                      </span>
+                    </>
+                  )}
                 </span>
               )}
             </a>
